@@ -96,11 +96,11 @@
         </div>
       </div>
     </header>
-    <main class="max-w-[1400px] mx-2.5 sm:mx-auto ">
-        <div class="flex justify-between items-center">
-            <button class="w-1/2">Categories</button>
-            <button class="w-1/2">Your Cart</button>
-        </div>
+    <main class="max-w-[1400px] mx-2.5 sm:mx-auto">
+      <div class="flex justify-between items-center">
+        <button class="w-1/2">Categories</button>
+        <button class="w-1/2">Your Cart</button>
+      </div>
       <section class="mt-20">
         <h1 class="text-3xl font-bold text-center">Choose Your Trees</h1>
         <div class="sm:grid grid-cols-17 gap-4 mt-10">
@@ -110,10 +110,56 @@
               <li id="all-trees" class="px-2 py-1 rounded bg-green-700 text-white">All Trees</li>
             </ul>
           </div>
-          <div id="plant-container" class="col-span-12 sm:grid grid-cols-3 space-y-3 gap-4">
-            
+          <div id="card-section" class="col-span-12">
+            <div id="spinner" class="flex justify-center items-center hidden">
+              <span class="loading loading-spinner loading-xl"></span>
+            </div>
+            <div id="plant-container" class="sm:grid grid-cols-3 space-y-3 sm:space-y-0 gap-4"></div>
           </div>
-          <div class="col-span-3 bg-white text-center rounded shadow">hello</div>
+          <div class="col-span-3 bg-white rounded shadow-sm overflow-hidden">
+            <div class="bg-green-300 flex justify-between items-center p-3">
+              <h1 class="text-lg font-semibold"><i class="fa-solid fa-cart-shopping"></i> Your Cart</h1>
+              <p id="carts" class="text-lg font-semibold">0</p>
+            </div>
+            <div id="mycarts" class="p-2 space-y-2">
+              <div class="bg-gray-100 flex justify-between items-center rounded p-2">
+                <div class="space-y-1">
+                  <h1 class="text-[18px] font-semibold">Mango Tree</h1>
+                  <p class="text-[18px] text-gray-600">
+                    <span class="text-sm font-extrabold mr-0.5">৳</span><span>500</span> x <span>1</span>
+                  </p>
+                </div>
+                <div id="delete" class="p-2 hover:bg-white hover:rounded">
+                  <i class="fa-solid fa-xmark text-red-700"></i>
+                </div>
+              </div>
+            </div>
+            <div
+              id="total-cost"
+              class="flex justify-between items-center border-t-2 border-gray-200 mt-1 mx-2 py-2 hidden"
+            >
+              <h1 class="text-[18px] font-semibold">Total:</h1>
+              <p class="text-[18px] font-semibold">৳ <span id="cost">0</span></p>
+            </div>
+          </div>
+        </div>
+
+        <div id="modal-section">
+          <dialog id="plant_details_modal" class="modal modal-bottom sm:modal-middle">
+            <div class="modal-box">
+                <div
+                  id="modal"
+                  class="space-y-2"
+                >
+                  
+                </div>
+              <div class="modal-action">
+                <form method="dialog">
+                  <button class="btn">Close</button>
+                </form>
+              </div>
+            </div>
+          </dialog>
         </div>
       </section>
     </main>
