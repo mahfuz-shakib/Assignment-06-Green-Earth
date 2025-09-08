@@ -1,6 +1,12 @@
 const categoryContainer = document.getElementById("category-container");
 const plantContainer = document.getElementById("plant-container");
+const cartContainer = document.getElementById("myCarts");
+let carts = [];
 
+const sliceDescription = (text) => {
+  const shortText = text.split(" ").slice(0, 10).join(" ");
+  return text.length > 12 ? shortText + " . . ." : shortText;
+};
 const activeCategory = (id) => {
   const categories = categoryContainer.children;
   for (let category of categories) {
@@ -50,11 +56,12 @@ const showAllPlants = (plants) => {
   plantContainer.innerHTML = "";
   plants.forEach((plant) => {
     const { id, name, image, description, category, price } = plant;
+    const shortDescription = sliceDescription(description);
     plantContainer.innerHTML += `
-        <div id="${id}" class="plant bg-white flex flex-col justify-between gap-2.5 shadow rounded-lg pb-3 overflow-hidden">
-              <img src="${image}" alt="${name}" class="img h-[300px] w-full rounded-t" />
-              <h1 class="font-bold mx-3 border-b-2 border-transparent hover:border-green-700 w-fit " title=" click to see details">${name}</h1>
-              <p class="text-sm text-justify mx-3">${description}</p>
+        <div id="${id}" class="plant bg-white flex flex-col justify-between gap-2 shadow rounded-lg pb-3 overflow-hidden">
+              <img src="${image}" alt="${name}" class="h-[300px] w-full rounded-t" />
+              <h1 class="text-lg font-bold mx-3 border-b-2 border-transparent hover:border-green-700 w-fit " title=" click to see details">${name}</h1>
+              <p class="text-sm text-justify mx-3">${shortDescription}</p>
               <div class="flex justify-between items-center px-3 my-1">
                 <p class="bg-[#CFF0DC] text-sm px-3 py-1 rounded-3xl text-gray-600">${category}</p>
                 <p><span class="text-sm font-extrabold mr-0.5 text-gray-600">৳</span><span class="text-green-800">${price}</span></p>
@@ -95,17 +102,27 @@ const loadPlantsByCategory = (id) => {
 };
 
 plantContainer.addEventListener("click", (e) => {
-  // console.log(e);
-  // console.log(e.target);
   const parent = e.target.parentNode;
-  console.log(parent.id);
   if (e.target.localName == "h1") {
     loadPlantDetails(parent.id);
   }
   if (e.target.localName == "button") {
-    addToCart(parent.id);
+    const newCartId = parent.id;
+    const name = parent.children[1].innerText;
+    const price = parent.children[3].children[1].children[1].innerText;
+    let flag = false;
+    carts.map((cart, index) => {
+      if (cart.id === newCartId) {
+        carts[index].count++;
+        flag = true;
+      }
+    });
+    if (!flag) {
+      const cart = { id: `${newCartId}`, name: `${name}`, price: `${price}`, count: 1 };
+      carts.push(cart);
+    }
+    addToCart(carts);
   }
-  // console.log(e.target);
 });
 
 const loadPlantDetails = (id) => {
@@ -115,6 +132,64 @@ const loadPlantDetails = (id) => {
       makeModal(data.plants);
     });
 };
+
+// const without_append__increase_counts_of_that_cart_in_cart_container = (newCartId) => {};
+
+const addToCart = (carts) => {
+  cartContainer.innerHTML = "";
+  let totalCost = 0,
+    totalCarts = 0;
+  carts.forEach((plant) => {
+    const {id, name, price, count } = plant;
+    totalCarts += count;
+    totalCost += price * count;
+    cartContainer.innerHTML += `
+               <div class="bg-gray-100 flex justify-between items-center rounded p-2">
+                <div class="space-y-1">
+                  <h1 class="text-[18px] font-semibold">${name}</h1>
+                  <p class="text-[18px] text-gray-600">
+                    <span class="text-sm font-extrabold mr-0.5">৳</span><span>${price}</span> x <span>${count}</span>
+                  </p>
+                </div>
+                <div onclick="deleteFromCart(${id})" class="p-2 hover:bg-white hover:rounded">
+                  <i class="fa-solid fa-xmark text-red-700"></i>
+                </div>
+              </div>
+ `;
+  });
+  totalCartsAndCost(totalCarts,totalCost)
+};
+
+const deleteFromCart=id=>{
+ 
+  carts.map((cart,index)=>{
+    if(cart.id==id)
+    {
+      carts[index].count--;
+      if(carts[index].count===0)
+      { console.log("delete");
+        carts.splice(index,1);  //remove one element at specified index position
+      }
+    }
+  })
+  addToCart(carts);
+}
+
+const totalCartsAndCost=(totalCarts,totalCost)=>
+{
+  const displayCost = document.getElementById("total-cost");
+  if (carts.length) {
+    console.log(carts.size);
+    displayCost.classList.remove('hidden');
+    displayCost.innerHTML = `
+              <h1 class="text-[18px] font-semibold">Total:</h1>
+              <p class="text-[18px] font-semibold">৳ <span id="cost">${totalCost}</span></p>
+  `;
+  }
+  else displayCost.classList.add('hidden');
+
+  document.getElementById("carts").innerText = totalCarts;
+}
 
 loadAllPlantsByDefault();
 loadCategory();
