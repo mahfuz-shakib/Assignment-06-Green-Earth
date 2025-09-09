@@ -3,7 +3,9 @@
 ---
 ##  Featured Questions and Answer
 
+
 ### Q-1) What is the difference between var, let, and const?
+---
 ***var***, ***let*** and ***const*** are the variable declaration keywords in JavaScript. Basically older verison used ***var*** keyword but modern JavaScript version ES6+ uses ***let*** and ***const***.
 
 Those have some key differences such as:
@@ -44,6 +46,7 @@ Those have some key differences such as:
 
 ---
 ### Q-2) What is the difference between map(), forEach(), and filter()?
+---
 map(), forEach() and filter() are the array methods in JavaScript version ES6+.
 They have some particular uses such as :
 
@@ -78,7 +81,7 @@ They have some particular uses such as :
 ---
 
 ### Q-3) What are arrow functions in ES6?
-
+---
 Arrow functions are a shorter syntax for writing functions introduced in ES6.
 
 #### `Key Features`
@@ -102,7 +105,7 @@ Arrow functions are a shorter syntax for writing functions introduced in ES6.
 
 ---
 ### Q-4) How does destructuring assignment work in ES6?
-
+---
 Destructuring allows you to unpack values from arrays or objects into separate variables. But variable name must be same as like as keys for object.
 
 #### `Array Destructuring`
@@ -127,7 +130,7 @@ Destructuring allows you to unpack values from arrays or objects into separate v
 
 ---
 ### Q-5) Explain template literals in ES6. How are they different from string concatenation?
-
+---
 Template literals are introduced in ES6 and allow us to embed variables and write multi-line strings using backticks (``).
 
 
