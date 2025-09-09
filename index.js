@@ -60,7 +60,7 @@ const showAllPlants = (plants) => {
     const { id, name, image, description, category, price } = plant;
     const shortDescription = sliceDescription(description);
     plantContainer.innerHTML += `
-        <div id="${id}" class="plant bg-white flex flex-col justify-between gap-2 shadow rounded-lg pb-3 overflow-hidden">
+        <div id="${id}" class="plant bg-white flex flex-col justify-between gap-2 shadow border border-gray-200 lg:border-none rounded-lg pb-3 overflow-hidden">
               <img src="${image}" alt="${name}" class="h-[300px] w-full rounded-t" />
               <h1 class="text-lg font-bold mx-3 border-b-2 border-transparent hover:border-green-700 w-fit " title=" click to see details">${name}</h1>
               <p class="text-sm text-justify mx-3">${shortDescription}</p>
@@ -211,10 +211,10 @@ const toggleContent = (id) => {
 
   const treesBtn = document.getElementById("trees-btn");
   const cartBtn = document.getElementById("cart-btn");
-  treesBtn.classList.remove("bg-green-100");
-  cartBtn.classList.remove("bg-green-100");
+  treesBtn.classList.remove("bg-lime-100");
+  cartBtn.classList.remove("bg-lime-100");
   const seletecdBtn = id === "card-section" ? treesBtn : cartBtn;
-  seletecdBtn.classList.add("bg-green-100");
+  seletecdBtn.classList.add("bg-lime-100");
 };
 
 loadAllPlantsByDefault();
