@@ -1,20 +1,21 @@
 const categoryContainer = document.getElementById("category-container");
 const plantContainer = document.getElementById("plant-container");
 const cartContainer = document.getElementById("myCarts");
+const mytTotalCart = document.getElementById("carts");
 let carts = [];
 
 const sliceDescription = (text) => {
   const shortText = text.split(" ").slice(0, 10).join(" ");
-  return text.length > 12 ? shortText + " . . ." : shortText;
+  return text.length > 12 ? shortText + "..." : shortText;
 };
 const activeCategory = (id) => {
   const categories = categoryContainer.children;
   for (let category of categories) {
-    category.classList.remove("bg-green-700", "text-white");
-    category.classList.add("hover:bg-green-500", "hover:text-white");
+    category.classList.remove("bg-green-500", "text-white");
+    category.classList.add("hover:bg-green-300");
   }
-  document.getElementById(id).classList.add("bg-green-700", "text-white");
-  document.getElementById(id).classList.remove("hover:bg-green-500", "hover:text-white");
+  document.getElementById(id).classList.add("bg-green-500", "text-white");
+  document.getElementById(id).classList.remove("hover:bg-green-300");
 };
 
 const manageSpinner = (status) => {
@@ -67,7 +68,7 @@ const showAllPlants = (plants) => {
                 <p class="bg-[#CFF0DC] text-sm px-3 py-1 rounded-3xl text-gray-600">${category}</p>
                 <p><span class="text-sm font-extrabold mr-0.5 text-gray-600">৳</span><span class="text-green-800">${price}</span></p>
               </div>
-              <button class="btn mx-3 bg-green-500 text-white rounded-3xl hover:bg-green-600 hover:text-black">Add to Cart</button>
+              <button class="btn mx-3 bg-teal-600 text-white rounded-3xl hover:bg-green-500 hover:text-black">Add to Cart</button>
             
          </div>
         `;
@@ -88,7 +89,7 @@ const loadCategory = () => {
 const showCategories = (categories) => {
   categories.forEach((category) => {
     categoryContainer.innerHTML += `
-          <h1 id="${category.id}" onclick="loadPlantsByCategory(${category.id})" class=" text-xs lg:text-base shadow text-center h-full lg:px-2 py-2.5 lg:py-1 rounded hover:bg-green-500 hover:text-white">${category.category_name}</h1>
+          <h1 id="${category.id}" onclick="loadPlantsByCategory(${category.id})" class=" text-xs lg:text-base shadow text-center h-full lg:px-2 py-2.5 lg:py-1 rounded border border-gray-400 lg:border-none hover:bg-green-300 ">${category.category_name}</h1>
         `;
   });
 };
@@ -124,6 +125,7 @@ plantContainer.addEventListener("click", (e) => {
       carts.push(cart);
     }
     addToCart(carts);
+    alert(`One item added to cart : ${name} \nCurrent total cart: ${mytTotalCart.innerText}`);
   }
 });
 
@@ -136,7 +138,7 @@ const loadPlantDetails = (id) => {
 };
 
 
-const addToCart = (carts) => {
+const addToCart =async (carts) => {
   cartContainer.innerHTML = "";
   let totalCost = 0,
     totalCarts = 0;
@@ -162,8 +164,10 @@ const addToCart = (carts) => {
 };
 
 const deleteFromCart = (id) => {
+  let name;
   carts.map((cart, index) => {
     if (cart.id == id) {
+      name=cart.name;
       carts[index].count--;
       if (carts[index].count === 0) {
         console.log("delete");
@@ -172,6 +176,7 @@ const deleteFromCart = (id) => {
     }
   });
   addToCart(carts);
+  alert(`One item deleted from cart : ${name} \nCurrent total cart: ${mytTotalCart.innerText}`);
 };
 
 const totalCartsAndCost = (totalCarts, totalCost) => {
@@ -206,10 +211,10 @@ const toggleContent = (id) => {
 
   const treesBtn = document.getElementById("trees-btn");
   const cartBtn = document.getElementById("cart-btn");
-  treesBtn.classList.remove("bg-green-300");
-  cartBtn.classList.remove("bg-green-300");
+  treesBtn.classList.remove("bg-green-100");
+  cartBtn.classList.remove("bg-green-100");
   const seletecdBtn = id === "card-section" ? treesBtn : cartBtn;
-  seletecdBtn.classList.add("bg-green-300");
+  seletecdBtn.classList.add("bg-green-100");
 };
 
 loadAllPlantsByDefault();
