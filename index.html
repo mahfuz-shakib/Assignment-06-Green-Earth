@@ -20,13 +20,13 @@
   <body class="bg-green-50">
     <header>
       <nav class="bg-[#15803D]">
-        <div class="navbar max-w-[1400px] mx-auto text-white shadow-sm">
-          <div class="navbar-start">
+        <div class="navbar flex justify-between items center max-w-[1400px] mx-auto text-white shadow-sm">
+          <div class="flex justify-between items-center gap-1">
             <div class="dropdown">
-              <div tabindex="0" role="button" class="btn btn-ghost -ml-2 lg:hidden">
+              <div tabindex="0" role="button" class="ml-2 lg:hidden">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  class="h-5 w-5"
+                  class="h-6 w-6"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -34,32 +34,32 @@
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" />
                 </svg>
               </div>
-              <ul tabindex="0" class="menu menu-sm dropdown-content bg-green-700 rounded-box z-1 mt-3 w-42 p-2 shadow">
-                <li class="hover:bg-white rounded hover:text-green-700 font-semibold text-base"><a>About</a></li>
-                <li class="hover:bg-white rounded hover:text-green-700 font-semibold text-base"><a>Gallery</a></li>
-                <li class="hover:bg-white rounded hover:text-green-700 font-semibold text-base"><a>Plant a Tree</a></li>
+              <ul tabindex="0" class="menu menu-sm dropdown-content bg-green-700 rounded-box z-1 mt-4 w-42 p-2 shadow">
+                <li class="text-lg hover:bg-white rounded hover:text-green-700 font-semibold"><a>About</a></li>
+                <li class="text-lg hover:bg-white rounded hover:text-green-700 font-semibold"><a>Gallery</a></li>
+                <li class="text-lg hover:bg-white rounded hover:text-green-700 font-semibold"><a>Plant a Tree</a></li>
               </ul>
             </div>
-            <a class="flex justify-between items-center border-b-3 border-transparent hover:border-b-green-400 -ml-2">
-              <img src="./assets/logo.png" class="size-12 invert brightness-0" alt="" />
-              <h1 class="-ml-2 mt-0.5 pr-2.5 text-xl font-semibold">Green Earth</h1>
+            <a class="flex justify-between items-center border-b-3 border-transparent hover:border-b-green-400">
+              <img src="./assets/log.png" class="size-7 lg:size-10 invert brightness-0" alt="" />
+              <h1 class="mt-1 pr-2.5 text-lg lg:text-2xl font-semibold">Green Earth</h1>
             </a>
           </div>
-          <div class="navbar-center hidden lg:flex">
+          <div class="hidden lg:flex">
             <ul class="menu menu-horizontal px-1">
-              <li class="border-b-3 border-b-transparent hover:border-b-green-400"><a>About</a></li>
-              <li class="border-b-3 border-b-transparent hover:border-b-green-400"><a>Gallery</a></li>
-              <li class="border-b-3 border-b-transparent hover:border-b-green-400"><a>Plant a Tree</a></li>
+              <li class="text-lg border-b-3 border-b-transparent hover:border-b-green-400"><a>About</a></li>
+              <li class="text-lg border-b-3 border-b-transparent hover:border-b-green-400"><a>Gallery</a></li>
+              <li class="text-lg border-b-3 border-b-transparent hover:border-b-green-400"><a>Plant a Tree</a></li>
             </ul>
           </div>
-          <div class="navbar-end">
+          <div>
             <button class="bg-[#FACC15] text-[#15803D] shadow-none rounded-3xl px-3 py-1.5 sm:py-2 hover:bg-amber-400">
               <a class="font-semibold" href="#">Plant a Tree</a>
             </button>
           </div>
         </div>
       </nav>
-      <div class="hero-section bg-[#CFF0DC]">
+      <div class="hero-section bg-[gradient-to-b from-[#CFF0DC] to-green-50] bg-[#CFF0DC]">
         <div class="hidden sm:flex sm:justify-between sm:items-center">
           <div>
             <img src="./assets/hero-leaf1.png" alt="" />
@@ -96,51 +96,59 @@
         </div>
       </div>
     </header>
-    <main class="max-w-[1400px] mx-2.5 sm:mx-auto">
-      <div class="flex justify-between items-center">
-        <button class="w-1/2">Categories</button>
-        <button class="w-1/2">Your Cart</button>
+    <main class="max-w-[1400px] mx-2.5 sm:mx-auto lg:mt-24">
+      <div class="flex justify-between items-center gap-2 mt-12 lg:hidden">
+        <button id="trees-btn" onclick="toggleContent('card-section')" class="w-1/2 btn rounded-lg p-1.5">
+          Choose Your Trees <i class="fa-solid fa-seedling text-green-600"></i>
+        </button>
+        <button id="cart-btn" onclick="toggleContent('cart-section')" class="w-1/2 btn bg-green-300 rounded-lg p-1.5">
+          <i class="fa-solid fa-cart-shopping text-purple-700"></i>Your Cart
+        </button>
       </div>
-      <section class="mt-20">
-        <h1 class="text-3xl font-bold text-center">Choose Your Trees</h1>
+      <section class="mt-12">
+        <h1 class="text-3xl font-bold text-center hidden lg:flex lg:justify-center">
+          Choose Your Trees <i class="fa-solid fa-seedling text-green-600 ml-2"></i>
+        </h1>
         <div class="sm:grid grid-cols-17 gap-4 mt-10">
-          <div class="col-span-2 shadow-xs">
-            <h1 class="font-bold text-lg">Categories</h1>
-            <ul id="category-container" class="space-y-1 mt-2">
-              <li id="all-trees" class="px-2 py-1 rounded bg-green-700 text-white">All Trees</li>
-            </ul>
+          <div id="category-section" class="col-span-2 shadow-xs">
+            <h1 class="font-bold text-lg text-center">Categories</h1>
+            <div
+              id="category-container"
+              class="grid grid-cols-3 lg:grid-cols-1 gap-x-1 gap-y-1.5 lg:gap-2 space-y-1 mt-4 lg:mt-2"
+            >
+              <h1
+                id="all-trees"
+                onclick="loadAllPlantsByDefault();"
+                class="text-xs lg:text-base col-span-2 lg:col-span-1 lg:px-2 py-2.5 lg:py-1 shadow h-full rounded bg-green-700 text-center"
+              >
+                All Trees
+              </h1>
+            </div>
           </div>
-          <div id="card-section" class="col-span-12">
-            <div id="spinner" class="flex justify-center items-center hidden">
+          <div id="card-section" class="col-span-12 mt-10 lg:mt-0">
+            <div id="spinner" class="flex justify-center items-center mt-20 hidden">
               <span class="loading loading-spinner loading-xl"></span>
             </div>
             <div id="plant-container" class="sm:grid grid-cols-3 space-y-4 sm:space-y-0 gap-4"></div>
           </div>
-          <div class="col-span-3 bg-white rounded shadow-sm overflow-hidden">
+          <!-- carts -->
+          <div id="cart-section" class="col-span-3 bg-white rounded shadow-sm overflow-hidden hidden lg:block">
             <div class="bg-green-300 flex justify-between items-center p-3">
-              <h1 class="text-lg font-semibold"><i class="fa-solid fa-cart-shopping"></i> Your Cart</h1>
+              <h1 class="text-lg font-semibold"><i class="fa-solid fa-cart-shopping text-purple-700"></i> Your Cart</h1>
               <p id="carts" class="text-lg font-semibold">0</p>
             </div>
-            <div id="myCarts" class="p-2 space-y-2">
-              
-            </div>
+            <div id="myCarts" class="p-2 space-y-2"></div>
             <div
               id="total-cost"
               class="flex justify-between items-center border-t-2 border-gray-200 mt-1 mx-2 py-2 hidden"
-            >
-            </div>
+            ></div>
           </div>
         </div>
 
         <div id="modal-section">
           <dialog id="plant_details_modal" class="modal modal-bottom sm:modal-middle">
             <div class="modal-box">
-                <div
-                  id="modal"
-                  class="space-y-2"
-                >
-                  
-                </div>
+              <div id="modal" class="space-y-2"></div>
               <div class="modal-action">
                 <form method="dialog">
                   <button class="btn">Close</button>

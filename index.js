@@ -43,6 +43,7 @@ const makeModal = (plant) => {
 };
 
 const loadAllPlantsByDefault = () => {
+  activeCategory("all-trees");
   manageSpinner(true);
   fetch("https://openapi.programming-hero.com/api/plants")
     .then((res) => res.json())
@@ -87,13 +88,14 @@ const loadCategory = () => {
 const showCategories = (categories) => {
   categories.forEach((category) => {
     categoryContainer.innerHTML += `
-            <li id="${category.id}" onclick="loadPlantsByCategory(${category.id})" class="px-2 py-1 rounded hover:bg-green-500 hover:text-white">${category.category_name}</li>
+          <h1 id="${category.id}" onclick="loadPlantsByCategory(${category.id})" class=" text-xs lg:text-base shadow text-center h-full lg:px-2 py-2.5 lg:py-1 rounded hover:bg-green-500 hover:text-white">${category.category_name}</h1>
         `;
   });
 };
 
 const loadPlantsByCategory = (id) => {
   activeCategory(id);
+  manageSpinner(true);
   fetch(`https://openapi.programming-hero.com/api/category/${id}`)
     .then((res) => res.json())
     .then((data) => {
@@ -133,14 +135,13 @@ const loadPlantDetails = (id) => {
     });
 };
 
-// const without_append__increase_counts_of_that_cart_in_cart_container = (newCartId) => {};
 
 const addToCart = (carts) => {
   cartContainer.innerHTML = "";
   let totalCost = 0,
     totalCarts = 0;
   carts.forEach((plant) => {
-    const {id, name, price, count } = plant;
+    const { id, name, price, count } = plant;
     totalCarts += count;
     totalCost += price * count;
     cartContainer.innerHTML += `
@@ -157,39 +158,59 @@ const addToCart = (carts) => {
               </div>
  `;
   });
-  totalCartsAndCost(totalCarts,totalCost)
+  totalCartsAndCost(totalCarts, totalCost);
 };
 
-const deleteFromCart=id=>{
- 
-  carts.map((cart,index)=>{
-    if(cart.id==id)
-    {
+const deleteFromCart = (id) => {
+  carts.map((cart, index) => {
+    if (cart.id == id) {
       carts[index].count--;
-      if(carts[index].count===0)
-      { console.log("delete");
-        carts.splice(index,1);  //remove one element at specified index position
+      if (carts[index].count === 0) {
+        console.log("delete");
+        carts.splice(index, 1); //remove one element at specified index position
       }
     }
-  })
+  });
   addToCart(carts);
-}
+};
 
-const totalCartsAndCost=(totalCarts,totalCost)=>
-{
+const totalCartsAndCost = (totalCarts, totalCost) => {
   const displayCost = document.getElementById("total-cost");
   if (carts.length) {
     console.log(carts.size);
-    displayCost.classList.remove('hidden');
+    displayCost.classList.remove("hidden");
     displayCost.innerHTML = `
               <h1 class="text-[18px] font-semibold">Total:</h1>
               <p class="text-[18px] font-semibold">৳ <span id="cost">${totalCost}</span></p>
   `;
-  }
-  else displayCost.classList.add('hidden');
+  } else displayCost.classList.add("hidden");
 
   document.getElementById("carts").innerText = totalCarts;
-}
+};
+
+const toggleContent = (id) => {
+  const categoryBox = document.getElementById("category-section");
+  const plantBox = document.getElementById("card-section");
+  const cartBox = document.getElementById("cart-section");
+  categoryBox.classList.add("hidden");
+  plantBox.classList.add("hidden");
+  cartBox.classList.add("hidden");
+  if (id == 'cart-section') {
+    cartBox.classList.remove("hidden");
+  }
+  else
+  {
+      categoryBox.classList.remove("hidden");
+      plantBox.classList.remove("hidden");
+  }
+
+  const treesBtn = document.getElementById("trees-btn");
+  const cartBtn = document.getElementById("cart-btn");
+  treesBtn.classList.remove("bg-green-300");
+  cartBtn.classList.remove("bg-green-300");
+  const seletecdBtn = id === "card-section" ? treesBtn : cartBtn;
+  seletecdBtn.classList.add("bg-green-300");
+};
 
 loadAllPlantsByDefault();
 loadCategory();
